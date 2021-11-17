@@ -3,7 +3,7 @@ package fr.unilim.iut.kataparrot;
 public class Parrot {
 
 	private ParrotTypeEnum type;
-	private int numberOfCoconuts = 0;
+	protected int numberOfCoconuts = 0;
 	protected double voltage;
 	private boolean isNailed;
 
@@ -19,9 +19,12 @@ public class Parrot {
 		case EUROPEAN:
 			throw new RuntimeException("Should be unreachable");
 		case AFRICAN:
-			return Math.max(0, getBaseSpeed() - getLoadFactor() * numberOfCoconuts);
+			throw new RuntimeException("Should be unreachable");
 		case NORWEGIAN_BLUE:
-			return (isNailed) ? 0 : getBaseSpeed(voltage);
+			if (isNailed)
+				return 0;
+			else
+				return getBaseSpeed(voltage);
 		}
 		throw new RuntimeException("Should be unreachable");
 	}
@@ -30,7 +33,7 @@ public class Parrot {
 		return Math.min(24.0, voltage * getBaseSpeed());
 	}
 
-	private double getLoadFactor() {
+	protected double getLoadFactor() {
 		return 9.0;
 	}
 
